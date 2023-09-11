@@ -1,0 +1,52 @@
+﻿<Window x:Class="HW2_WPF_MyNotes__Client_Server_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW2_WPF_MyNotes__Client_Server_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1000" Cursor="">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+            <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center" Text="My notes" />
+            <TextBlock  Text="Title"/>
+            <TextBox Text="{Binding Path=ShortText, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock  Text="New note"/>
+            <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="5">
+                <TextBox Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" Height="50" TextWrapping="Wrap" />
+            </Border>
+
+            <Button
+                Command="{Binding AddCommand}"
+                Margin="0 15 0 10"
+                Content="Save my new note"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Cursor="Hand" />
+        </StackPanel>
+
+        <ListBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding MyNotes}" Background="#FFD3F2F3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <StackPanel >
+                            <TextBlock Text="{Binding Path=noteDateTime}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding Path=shortDescription}" FontStyle="Italic"></TextBlock>
+                            <TextBlock Text="{Binding Path=description}" TextWrapping="Wrap"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
